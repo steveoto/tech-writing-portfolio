@@ -12,6 +12,28 @@
     <link rel="modulepreload" crossorigin href="./assets/client-DBDiSal0.js">
   </head>
   <body>
+    <div id="api-key-bar" style="background:#232f3e;padding:10px 20px;display:flex;align-items:center;gap:10px;justify-content:center">
+      <label for="api-key-input" style="color:#fff;font-size:13px;font-weight:600">OpenAI API Key:</label>
+      <input id="api-key-input" type="password" placeholder="sk-proj-..." style="width:340px;padding:6px 10px;border:1px solid #555;border-radius:4px;font-size:13px;font-family:monospace;background:#1a1a2e;color:#0f0" />
+      <span id="key-status" style="font-size:12px;color:#f0960a">No key entered</span>
+    </div>
     <div id="root"></div>
+    <script>
+      window.__OPENAI_KEY = "";
+      document.getElementById("api-key-input").addEventListener("input", function(e) {
+        window.__OPENAI_KEY = e.target.value.trim();
+        var status = document.getElementById("key-status");
+        if (window.__OPENAI_KEY.startsWith("sk-")) {
+          status.textContent = "Key loaded";
+          status.style.color = "#28a745";
+        } else if (window.__OPENAI_KEY.length > 0) {
+          status.textContent = "Invalid format";
+          status.style.color = "#dc3545";
+        } else {
+          status.textContent = "No key entered";
+          status.style.color = "#f0960a";
+        }
+      });
+    </script>
   </body>
 </html>
